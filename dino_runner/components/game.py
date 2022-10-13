@@ -1,6 +1,8 @@
 import pygame
 from dino_runner.components.dinosaur import Dinosaur
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
+from dino_runner.components.obstacles.cactus import Cactus
+from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
+from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, SMALL_CACTUS, TITLE, FPS
 
 
 class Game:
@@ -18,6 +20,7 @@ class Game:
         ### pueden ponerse cosas por guera de la pantalla [valores negativos]
 
         self.player = Dinosaur()
+        self.obstacle_manager = ObstacleManager()
 
     def run(self):
         # Game loop: events - update - draw
@@ -36,12 +39,14 @@ class Game:
     def update(self): ###actualiza el estado del juego
         user_input = pygame.key.get_pressed() ###ingresa una accion por medio del usuario
         self.player.update(user_input)
+        self.obstacle_manager.update(self)
 
     def draw(self): ###aqui se dibujaran los objetos que necesitamos
         self.clock.tick(FPS) ### tick ayuda a refrescar la pantalla n numero de veces por segundo
         self.screen.fill((255, 255, 255)) ###screen.fill sirve para rellenar la pantalla de color RGB
         self.draw_background()  ###con este drsaw ponemos el camino que se mueve
         self.player.draw(self.screen)
+        self.obstacle_manager.draw(self.screen)
         pygame.display.update() ###actualiza los ajustes de pantalla (relleno, color, objetos)
         pygame.display.flip()
 

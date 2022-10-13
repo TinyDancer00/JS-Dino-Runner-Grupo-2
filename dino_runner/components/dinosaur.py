@@ -34,7 +34,7 @@ class Dinosaur(Sprite):
             self.dino_jumping = True
             self.dino_running = False
             self.dino_ducking = False
-        elif user_input[pygame.K_DOWN] and not self.dino_ducking:
+        elif user_input[pygame.K_DOWN] and not self.dino_jumping:
             self.dino_jumping = False
             self.dino_running = False
             self.dino_ducking = True    
@@ -71,7 +71,7 @@ class Dinosaur(Sprite):
         self.dino_rect.x = self.X_DUCK
         self.dino_rect.y = self.Y_DUCK        
         self.step_index +=1   
-        self.dino_ducking = False     
+
 
     def draw(self, screen):
         screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
