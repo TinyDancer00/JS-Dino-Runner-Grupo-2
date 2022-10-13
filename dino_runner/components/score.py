@@ -11,9 +11,12 @@ class Score(Sprite):
         if self.score %100 == 0:
             game.game_speed +=1
 
-    def draw(self):
+    def draw(self, screen):
         font = pygame.font.Font(FONT_STYLE, 30)
-        text = font.render(f"SCORE: [self.score]", True, (0, 0, 0))
+        text = font.render(f"SCORE: {self.score}", True, (0, 0, 0))
         text_rect = text.get_rect()
         text_rect.center = (1000,50)
-        self.screen.blit(text, text_rect)
+        screen.blit(text, text_rect)
+
+    def reset_score(self):
+        self.score =0    
