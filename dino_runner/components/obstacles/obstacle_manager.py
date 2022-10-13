@@ -6,17 +6,17 @@ class ObstacleManager:
     def __init__(self):
         self.obstacles = []
 
-    def update(self, game):
+    def update(self, game_speed, player, on_death):
         if len(self.obstacles) == 0:
             cactus_type = "SMALL" if randint(0, 1) == 0 else "LARGE"
             self.obstacles.append(Cactus(cactus_type))    
 
         for obstacle in self.obstacles:
-            obstacle.update(game.game_speed, self.obstacles)
-            if game.player.dino_rect.colliderect(obstacle.rect):
+            obstacle.update(game_speed, self.obstacles)
+            if player.dino_rect.colliderect(obstacle.rect):
                 print("Perdiste")
                 pygame.time.delay(800)
-                game.playing = False
+                on_death()
                 break
 
     def draw(self, screen):
